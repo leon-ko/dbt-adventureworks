@@ -1,0 +1,64 @@
+version: 2
+
+sources:
+  - name: adventure_works
+    description: Database with the row application data.
+    database: raw
+    schema: adventure_works
+    tables:
+
+      - name: customer
+        description: Raw customers data.
+        columns:
+          - name: customerid
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+
+      - name: store
+        description: Raw orders data.
+        columns:
+          - name: businessentityid
+            description: Primary key for stores
+            tests:
+              - unique
+              - not_null
+
+      - name: salesterritory
+        description: All sales teritories
+        columns:
+          - name: territoryid
+            description: Primary key for teritories
+            tests:
+              - unique
+              - not_null
+
+      - name: salesreason
+        description: All salesreason
+        columns:
+          - name: salesreasonid
+            description: Primary key for salesreason
+            tests:
+              - unique
+              - not_null
+
+      - name: vindividualcustomer
+        description: More detailed Information about the customers
+        columns:
+          - name: businessentityid
+            description: Primary key for the individual customer infomation
+            tests:
+              - not_null
+      
+      - name: vsalesperson
+        description: Detailed information about the Salesperson
+        columns:
+          - name: businessentityid
+            description: Primary Key of the Salesperson
+            tests:
+              - unique
+              - not_null 
+
+
+  
