@@ -24,12 +24,77 @@ sources:
             tests:
               - unique
               - not_null
+      
+      - name: salesperson
+        description: General Information about salesperson
+        columns:
+          - name: businessentityid
+            description: Primary key for salesperson
+            tests:
+              - unique
+              - not null
+
+      - name: product
+        description: Product data
+        columns:
+          - name: productid
+            description: Primary key for products
+            tests:
+              - unique
+              - not_null
+
+      - name: productcategory
+        description: Product categories of the shop
+        columns:
+          - name: productcategoryid
+            description: Primary key for the categories
+            tests:
+              - unique
+              - not_null
+      
+      - name: productsubcategory
+        description: Product subcategories of the products
+        columns:
+          - name: productsubcategoryid
+            description: Primary key for the subcategories
+            tests:
+              - unique
+              - not_null
+      
 
       - name: salesterritory
         description: All sales teritories
         columns:
           - name: territoryid
             description: Primary key for teritories
+            tests:
+              - unique
+              - not_null
+
+
+      - name: salesorderdetail
+        description: Sales postion about every order.
+        columns:
+          - name: salesorderdetailid
+            description: Primary key for the sales order information
+            tests: 
+              - unique
+              - not_null
+
+      - name: salesorderheader
+        description: Distinct sales information
+        columns:
+          - name: salesorderid
+            description: Primary key for the sales order information
+            tests: 
+              - unique
+              - not_null
+
+      - name: salesorderheadersalesreason
+        description: Information about the salesreason
+        columns:
+          - name: salesorderid
+            description: Primary key for the sales reason
             tests:
               - unique
               - not_null
