@@ -1,9 +1,45 @@
-SELECT
-    productid,
-    name,
-    size,
-    class,
-    color,
-    productsubcategoryid
-FROM
-    {{source('adventure_works', 'product')}}
+WITH source AS (
+
+    SELECT *
+    FROM {{source('adventure_works', 'product')}}
+
+), renamed AS (
+
+    SELECT
+        CLASS::VARCHAR                      AS CLASS,
+        COLOR::VARCHAR                      AS COLOR,
+        DAYSTOMANUFACTURE::NUMBER           AS DAYS_TO_MANUFACTURE,
+        DISCONTINUEDDATE::VARCHAR           AS DISCONTINUE_DATA,
+        FINISHEDGOODSFLAG::BOOLEAN          AS FINISHED_GOODS_FLAG,
+        LISTPRICE::FLOAT                    AS LIST_PRICE,
+        MAKEFLAG::BOOLEAN                  AS MAKE_FLAG,
+        MODIFIEDDATE::VARCHAR               AS MODIFIED_DATE,
+        NAME::VARCHAR                       AS NAME,
+        PRODUCTID::NUMBER                   AS PRODUCT_ID,
+        PRODUCTLINE::VARCHAR                AS PRODUCT_LINE,
+        PRODUCTMODELID::NUMBER              AS PRODUCT_MODEL_ID,
+        PRODUCTNUMBER::VARCHAR              AS PRODUCT_NUMBER,
+        PRODUCTSUBCATEGORYID::NUMBER        AS PRODUCT_SUBCATEGORY,
+        REORDERPOINT::NUMBER                AS REORDER_POINT,
+        ROWGUID::VARCHAR                    AS ROWGU_ID,
+        SAFETYSTOCKLEVEL::NUMBER            AS SAFETY_STOCK_LEVEL,
+        SELLENDDATE::VARCHAR                AS SELL_END_DATE,
+        SELLSTARTDATE::VARCHAR              AS SELL_START_DATE,
+        SIZE::VARCHAR                       AS SIZE,
+        SIZEUNITMEASURECODE::VARCHAR        AS SIZE_UNIT_MEASURE_CODE,
+        STANDARDCOST:: FLOAT                AS STANDARD_COST,
+        STYLE::VARCHAR                      AS STYLE,
+        WEIGHT::FLOAT                       AS WEIGHT,
+        WEIGHTUNITMEASURECODE               AS WEIGHT_UNIT_MEASURE_CODE,
+        _AIRBYTE_AB_ID::VARCHAR             AS AIRBYTE_AB_ID,
+        _AIRBYTE_EMITTED_AT::TIMESTAMP      AS AIRBYTE_EMITTED_HASHID,
+        _AIRBYTE_NORMALIZED_AT::TIMESTAMP   AS _AIRBYTE_NORMALIZED_AT,
+        _AIRBYTE_PRODUCT_HASHID::VARCHAR    AS AIRBYTE_PRODUCT_HASHID,
+
+    FROM source
+
+)
+
+SELECT *
+FROM renamed
+
