@@ -7,9 +7,9 @@ WITH source AS (
 
     SELECT
         MODIFIEDDATE::VARCHAR                           AS MODIFIED_DATE,
-        NAME::VARCHAR                                   AS NAME,
-        PRODUCTCATEGORYID::NUMBER                       AS PRODUCTCATEGORY_ID,
-        PRODUCTSUBCATEGORYID::NUMBER                    AS PRODUCTSUBCATEGORY_ID,
+        NAME::VARCHAR                                   AS PRODUCT_SUBCATEGORY_NAME,
+        PRODUCTCATEGORYID::NUMBER                       AS PRODUCT_CATEGORY_ID,
+        PRODUCTSUBCATEGORYID::NUMBER                    AS PRODUCT_SUBCATEGORY_ID,
         ROWGUID::VARCHAR                                AS ROWGU_ID,
         _AIRBYTE_AB_ID::VARCHAR                         AS AIRBYTE_AB_ID,
         _AIRBYTE_EMITTED_AT::TIMESTAMP                  AS AIRBYTE_EMITTED_HASHID,

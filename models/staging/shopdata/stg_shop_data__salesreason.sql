@@ -7,7 +7,7 @@ WITH source AS (
 
     SELECT
         MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
-        NAME::VARCHAR                               AS NAME,
+        NAME::VARCHAR                               AS SALESREASON_NAME,
         REASONTYPE::VARCHAR                         AS REASON_TYPE,
         SALESREASONID::NUMBER                       AS SALESREASON_ID,
         _AIRBYTE_AB_ID::VARCHAR                     AS AIRBYTE_AB_ID,

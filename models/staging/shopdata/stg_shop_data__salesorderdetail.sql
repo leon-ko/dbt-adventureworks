@@ -8,8 +8,7 @@ WITH source AS (
     SELECT
         CARRIERTRACKINGNUMBER::VARCHAR              AS CARRIER_TRACKING_NUMBER,
         LINETOTAL::FLOAT                            AS LINETOTAL,
-        MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
-        ORDERQTY::NUMBER                            AS ORDER_QTY
+        ORDERQTY::NUMBER                            AS ORDER_QTY,
         MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
         PRODUCTID::NUMBER                           AS PRODUCT_ID,
         ROWGUID::VARCHAR                            AS ROW_ID,
@@ -21,7 +20,7 @@ WITH source AS (
         _AIRBYTE_AB_ID::VARCHAR                     AS AIRBYTE_AB_ID,
         _AIRBYTE_EMITTED_AT::TIMESTAMP              AS AIRBYTE_EMITTED_HASHID,
         _AIRBYTE_NORMALIZED_AT::TIMESTAMP           AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_SALESORDERDETAIL_HASHID::VARCHAR   AS AIRBYTE_SALESORDERDETAIL_HASHID,
+        _AIRBYTE_SALESORDERDETAIL_HASHID::VARCHAR   AS AIRBYTE_SALESORDERDETAIL_HASHID
 
     FROM source
 

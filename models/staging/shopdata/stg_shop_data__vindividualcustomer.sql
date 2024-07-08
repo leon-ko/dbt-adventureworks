@@ -20,7 +20,7 @@ WITH source AS (
         MIDDLENAME::VARCHAR                            AS MIDDLENAME,
         PHONENUMBER::VARCHAR                           AS PHONENUMBER,
         PHONENUMBERTYPE::VARCHAR                       AS PHONENUMBER_TYPE,
-        POSTALCODE::VARCHAR                            AS POSTALCODE,
+        POSTALCODE::VARCHAR                            AS POSTAL_CODE,
         STATEPROVINCENAME::VARCHAR                     AS STATEPROVINCENAME,
         SUFFIX::VARCHAR                                AS SUFFIX,
         TITLE::VARCHAR                                 AS TITLE,
