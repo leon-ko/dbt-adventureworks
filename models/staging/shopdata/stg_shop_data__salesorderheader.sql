@@ -24,7 +24,7 @@ WITH source AS (
         SALESORDERID::NUMBER                        AS SALESORDER_ID,
         SALESORDERNUMBER::VARCHAR                   AS SALESORDER_NUMBER,
         SALESPERSONID::NUMBER                       AS SALESPERSON_ID,
-        SHIPDATE::VARCHAR                           AS SHIPDATE,
+        SHIPDATE::VARCHAR                           AS SHIP_DATE,
         SHIPMETHODID::NUMBER                        AS SHIPMETHOD_ID,
         SHIPTOADDRESSID::NUMBER                     AS SHIPTOADDRESS_ID,
         STATUS::NUMBER                              AS STATUS,

@@ -1,7 +1,7 @@
 WITH source AS (
 
     SELECT *
-    FROM {{source('adventure_works', 'vindividualcustomer')}}
+    FROM {{source('dbt_lk', 'source_vindividualcustomer')}}
 
 ), renamed AS (
 
@@ -31,6 +31,7 @@ WITH source AS (
 
     FROM source
 
+    WHERE ADDRESSTYPE = 'Home'
 )
 
 SELECT *

@@ -1,7 +1,7 @@
 WITH source AS (
 
     SELECT *
-    FROM {{source('adventure_works', 'customer')}}
+    FROM {{source('dbt_lk', 'source_customer')}}
 
 ), renamed AS (
 

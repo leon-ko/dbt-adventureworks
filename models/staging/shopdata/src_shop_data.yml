@@ -125,5 +125,25 @@ sources:
               - unique
               - not_null 
 
+  - name: dbt_lk
+    description: Database with the row application data.
+    database: prep
+    schema: dbt_lk
+    tables:
 
-  
+      - name: source_customer
+        description: Raw customers data.
+        columns:
+          - name: customerid
+            description: Primary key for customers
+            tests:
+              - unique
+              - not_null
+      
+      - name: source_vindividualcustomer
+        description: More detailed Information about the customers
+        columns:
+          - name: businessentityid
+            description: Primary key for the individual customer infomation
+            tests:
+              - not_null

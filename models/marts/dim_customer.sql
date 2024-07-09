@@ -14,13 +14,13 @@ store as (
 
 final as (
     select
-        customer.customer_id,
-        coalesce(customer.person_id, 0) AS person_id,
-        coalesce(customer.store_id, 0) AS store_id,
-        coalesce((concat(individual_customer.firstname, ' ', individual_customer.lastname)), 'unknown') AS full_name,
-        coalesce(store.name, 'unknown') AS store_name,
-        coalesce(individual_customer.demographics, 'unknown') AS demographics,
-        coalesce(individual_customer.postal_code, 'unknown') AS postal_code
+        customer.customer_id                                                                                as customer_id,
+        coalesce(customer.person_id, 0)                                                                     as person_id,
+        coalesce(customer.store_id, 0)                                                                      as store_id,
+        coalesce((concat(individual_customer.firstname, ' ', individual_customer.lastname)), 'unknown')     as full_name,
+        coalesce(store.name, 'unknown')                                                                     as store_name,
+        coalesce(individual_customer.demographics, 'unknown')                                               as demographics,
+        coalesce(individual_customer.postal_code, 'unknown')                                                as postal_code
 
     from customer
 
