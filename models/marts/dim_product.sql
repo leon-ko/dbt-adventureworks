@@ -31,7 +31,6 @@ final as (
     left join product_subcategory on product.product_subcategory_id = product_subcategory.product_subcategory_id
     left join product_category on product_subcategory.product_category_id = product_category.product_category_id
 )
-
 select * from final
 
 

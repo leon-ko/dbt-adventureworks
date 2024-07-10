@@ -25,7 +25,7 @@ final as (
     from customer
 
     left join individual_customer on customer.customer_id = individual_customer.BUSINESSENTITY_ID
-    left join store on customer.customer_id = store.BUSINESSENTITY_ID
+    left join store on customer.store_id = store.BUSINESSENTITY_ID
     
 )
 
