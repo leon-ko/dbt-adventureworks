@@ -17,7 +17,7 @@ WITH source AS (
         FREIGHT::FLOAT                              AS FREIGHT,
         MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
         ONLINEORDERFLAG::BOOLEAN                    AS ONLINE_ORDER_FLAG,
-        ORDERDATE::VARCHAR                          AS ORDER_DATE,
+        to_char(to_timestamp(orderdate), 'YYYYMMDD') AS ORDER_DATE,
         PURCHASEORDERNUMBER::VARCHAR                AS PURCHASE_ORDER_NUMBER,
         REVISIONNUMBER::NUMBER                      AS REVISION_NUMBER,
         ROWGUID::VARCHAR                            AS ROW_ID,

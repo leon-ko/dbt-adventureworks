@@ -4,7 +4,7 @@ with category_revenue_forecast as (
 ), 
 final as (
     select 
-        product_category_id  as productcategory_id,
+        productcategory_id  as productcategory_id,
         revenue_forecast    as revenue_forecast,
         month_year_day      as month_year_day
     from 

@@ -7,19 +7,30 @@ salesorderheader as (
 salesorderreason as (
     select * from {{ref('stg_shop_data__salesorderheadersalesreason')}}
 ),
+snapshot_customer as (
+    select * from {{ref('stg_shop_data__snapshot_customer')}}
+),
+substage as (
+    select *
+    from salesorderheader
+    left join snapshot_customer on salesorderheader.customer_id = snapshot_customer.businessentity_id 
+    and salesorderheader.order_date between snapshot_customer.dbt_valid_from and snapshot_customer.dbt_valid_to
+),
+
 final as (
     select
-        salesorderheader.customer_id                    as customer_id,
+        substage.customer_id                            as customer_id,
+        coalesce(substage.dbt_scd_id, '0')              as dbt_scd_id,
         to_char(to_timestamp(due_date), 'YYYYMMDD')     as due_at,
-        to_char(to_timestamp(order_date), 'YYYYMMDD')   as ordered_at,
-        salesorderheader.subtotal                       as order_subtotal,
-        salesorderheader.totaldue                       as order_totaldue,
-        salesorderheader.status                         as salesorderheader_status,
-        salesorderheader.salesorder_id                  as salesorder_id,
-        salesorderheader.salesorder_number              as salesorder_number,
-        coalesce(salesorderheader.salesperson_id, 0)    as salesperson_id,
+        substage.order_date                             as ordered_at,
+        substage.subtotal                               as order_subtotal,
+        substage.totaldue                               as order_totaldue,
+        substage.status                                 as salesorderheader_status,
+        substage.salesorder_id                          as salesorder_id,
+        substage.salesorder_number                      as salesorder_number,
+        coalesce(substage.salesperson_id, 0)            as salesperson_id,
         to_char(to_timestamp(ship_date), 'YYYYMMDD')    as shipped_at,
-        salesorderheader.territory_id                   as territory_id,
+        substage.territory_id                           as territory_id,
         salesorderdetail.line_total                     as line_total,
         salesorderdetail.order_qty                      as order_quantity,
         salesorderdetail.product_id                     as product_id,
@@ -30,9 +41,9 @@ final as (
         
     from salesorderdetail
 
-    left join salesorderheader on salesorderdetail.salesorder_id = salesorderheader.salesorder_id
-    left join salesorderreason on salesorderdetail.salesorder_id = salesorderreason.salesorder_id
+    left join substage          on salesorderdetail.salesorder_id = substage.salesorder_id
+    left join salesorderreason  on salesorderdetail.salesorder_id = salesorderreason.salesorder_id
 
 )
 
-select * from final
+select * from final 

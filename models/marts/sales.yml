@@ -1,0 +1,163 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: One record per customer. Two types of customer privat and store
+    columns:
+      - name: customer_id
+        description: Primary key
+        tests: 
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: One record per day between 2011 and 2014
+    columns:
+      - name: date_key
+        description: Primary key in the format YYYYMMDD
+        tests:
+          - unique 
+          - not_null 
+
+  - name: dim_product
+    description: One record per offered product
+    columns:
+      - name: product_id
+        description: Primary key of the product
+        tests:
+          - unique
+          - not_null
+  
+  - name: dim_salesperson
+    description: One record per Salesperson
+    columns:
+      - name: salesperson_id
+        description: Primary key of the salesperson
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_salesreason
+    description: One record per Salesreason
+    columns:
+      - name: salesreason_id
+        description: Primary key of the salesreason
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_salesterritory
+    description: One record per Salesterritoy of the shop
+    columns:
+      - name: territory_id
+        description: Primary key of the territory
+        tests:
+          - unique
+          - not_null
+  
+  - name: dim_product_category
+    description: One record per productcategory
+    columns:
+      - name: productcategory_id
+        description: Primary key for the product category
+        tests:
+          - unique 
+          - not_null
+
+      - name: product_category_name
+        tests:
+          - accepted_values:
+              values: ['Bikes', 'Components', 'Clothing', 'Accessories']
+
+  - name: dim_scd_customer
+    description: Slow changing dimension of the customer, every present an historic value of customers which properties were changed
+    columns:
+      - name: dbt_scd_id
+        description: Primary key for the dimension
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_sales
+    columns: 
+      - name: customer_id
+        description: Foreign Key to the the dimension customer.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_id
+              config:
+                severity: warn
+      
+      - name: dbt_scd_id
+        description: Foreign key to the slowly changing dimension of the customer
+        tests:
+          - relationships:
+              to: ref('dim_scd_customer')
+              field: dbt_scd_id
+              config:
+                severity: warn
+
+      - name: ordered_at
+        description: Foreign Key for the date
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+              config:
+                severity: warn
+
+      - name: salesreason_id
+        description: Identifier for the salesreason
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_salesreason')
+              field: salesreason_id
+              config:
+                severity: warn
+
+      - name: line_total
+        description: The endprice for an order
+        tests:
+          - max_value:
+              threshold: 30000
+              config:
+                severity: warn
+
+
+  - name: fct_category_forecast
+    description: Revenue forecast by category
+    columns:
+      - name: productcategory_id
+        tests:
+          - not_null
+          - relationship:
+              to: ref('dim_product_category')
+              field: productcategory_id
+              config:
+                severity: warn
+
+      - name: month_year_day
+        tests:
+          - not_null
+          - relationship:
+              to: ref('dim_date')
+              field: date_key
+              config:
+                severity: warn
+
+
+        
+
+
+
+
+      
+
+  
+
+
+    
