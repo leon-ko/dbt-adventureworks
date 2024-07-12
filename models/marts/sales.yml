@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: dim_customers
+  - name: dim_customer
     description: One record per customer. Two types of customer privat and store
     columns:
       - name: customer_id
@@ -11,13 +11,23 @@ models:
           - not_null
 
   - name: dim_date
+    tests:
+      - dbt_expectations.expect_table_column_count_to_equal:
+          value: 11
     description: One record per day between 2011 and 2014
     columns:
       - name: date_key
         description: Primary key in the format YYYYMMDD
         tests:
           - unique 
-          - not_null 
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_increasing:
+              sort_column: date_day 
+      - name: date_day
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      
 
   - name: dim_product
     description: One record per offered product
@@ -54,6 +64,12 @@ models:
         tests:
           - unique
           - not_null
+    columns:
+      - name: 'country_region_code'
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['US', 'CA', 'FR', 'DE', 'AU', 'GB']
+              
   
   - name: dim_product_category
     description: One record per productcategory
@@ -70,6 +86,9 @@ models:
               values: ['Bikes', 'Components', 'Clothing', 'Accessories']
 
   - name: dim_scd_customer
+    tests:
+      - elementary.volume_anomalies:
+          tags: ['elementary']
     description: Slow changing dimension of the customer, every present an historic value of customers which properties were changed
     columns:
       - name: dbt_scd_id
@@ -79,6 +98,20 @@ models:
           - not_null
 
   - name: fct_sales
+    tests:
+      - elementary.volume_anomalies:
+          tags: ['elementary']
+      
+      - elementary.dimension_anomalies:
+          dimensions:
+            - salesreason_id
+          tags: ['elementary']
+      
+      - elementary.schema_changes:
+          tags: ['elementary']
+          config:
+            severity: warn
+
     columns: 
       - name: customer_id
         description: Foreign Key to the the dimension customer.
@@ -126,7 +159,12 @@ models:
               threshold: 30000
               config:
                 severity: warn
-
+          - elementary.column_anomalies:
+              column_anomalies:
+                - min
+                - max
+                - average
+                - not_null
 
   - name: fct_category_forecast
     description: Revenue forecast by category
@@ -134,7 +172,7 @@ models:
       - name: productcategory_id
         tests:
           - not_null
-          - relationship:
+          - relationships:
               to: ref('dim_product_category')
               field: productcategory_id
               config:
@@ -143,11 +181,16 @@ models:
       - name: month_year_day
         tests:
           - not_null
-          - relationship:
+          - relationships:
               to: ref('dim_date')
               field: date_key
               config:
                 severity: warn
+      
+      - name: revenue_forecast
+        tests: 
+          - dbt_expectations.expect_column_distinct_values_to_be_in_set:
+              value_set: [2000000, 300000, 50000, 30000]
 
 
         
