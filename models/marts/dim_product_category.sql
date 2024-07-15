@@ -1,11 +1,12 @@
-with product_category as (
-    select * from {{ref('stg_shop_data__productcategory')}}
+WITH product_category AS (
+    SELECT * 
+    FROM {{ ref('stg_shop_data__productcategory') }}
 ),
-final as (
-    select    
-        product_category.product_category_id        as productcategory_id,
-        product_category.product_category_name      as product_category_name
-    from product_category
-     
+final AS (
+    SELECT    
+        product_category.product_category_id   AS productcategory_id,
+        product_category.product_category_name AS product_category_name
+    FROM product_category
 )
-select * from final
+SELECT * 
+FROM final;

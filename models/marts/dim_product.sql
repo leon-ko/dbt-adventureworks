@@ -1,36 +1,41 @@
-with product as (
-    select * from {{ref('stg_shop_data__product')}}
+WITH product AS (
+    SELECT *
+    FROM {{ ref('stg_shop_data__product') }}
 ),
 
-product_category as (
-    select * from {{ref('stg_shop_data__productcategory')}}
+product_category AS (
+    SELECT *
+    FROM {{ ref('stg_shop_data__productcategory') }}
 ),
 
-product_subcategory as (
-    select * from {{ref('stg_shop_data__productsubcategoryid')}}
+product_subcategory AS (
+    SELECT *
+    FROM {{ ref('stg_shop_data__productsubcategoryid') }}
 ),
 
-final as (
-    select
-        product.product_name                                                as product_name,
-        coalesce(product.product_size, 'unknown')                           as product_size,
-        coalesce(product.product_class,'unknown')                           as product_class,
-        coalesce(product.product_color,'unknown')                           as product_color,
-        coalesce(product.product_style,'unknown')                           as product_style,
-        coalesce(product.product_weight, 0)                                 as product_weight,
-        coalesce(product.list_price, 0)                                     as list_price,
-        product.product_id                                                  as product_id,
-        coalesce(product.product_line, 'unknown')                           as product_line,
-        coalesce(product_subcategory.product_subcategory_id, 0)             as productsubcategory_id,
-        coalesce(product_subcategory.product_subcategory_name, 'unknown')   as productsubcategory_name,
-        coalesce(product_category.product_category_id, 0)                   as productcategory_id,
-        coalesce(product_category.product_category_name, 'unknown')         as productcategory_name
+final AS (
+    SELECT
+        product.product_name                                              AS product_name,
+        COALESCE(product.product_size, 'unknown')                         AS product_size,
+        COALESCE(product.product_class, 'unknown')                        AS product_class,
+        COALESCE(product.product_color, 'unknown')                        AS product_color,
+        COALESCE(product.product_style, 'unknown')                        AS product_style,
+        COALESCE(product.product_weight, 0)                               AS product_weight,
+        COALESCE(product.list_price, 0)                                   AS list_price,
+        product.product_id                                                AS product_id,
+        COALESCE(product.product_line, 'unknown')                         AS product_line,
+        COALESCE(product_subcategory.product_subcategory_id, 0)           AS productsubcategory_id,
+        COALESCE(product_subcategory.product_subcategory_name, 'unknown') AS productsubcategory_name,
+        COALESCE(product_category.product_category_id, 0)                 AS productcategory_id,
+        COALESCE(product_category.product_category_name, 'unknown')       AS productcategory_name
 
-    from product
+    FROM product
 
-    left join product_subcategory on product.product_subcategory_id = product_subcategory.product_subcategory_id
-    left join product_category on product_subcategory.product_category_id = product_category.product_category_id
+    LEFT JOIN product_subcategory
+        ON product.product_subcategory_id = product_subcategory.product_subcategory_id
+    LEFT JOIN product_category
+        ON product_subcategory.product_category_id = product_category.product_category_id
 )
-select * from final
 
-
+SELECT * 
+FROM final;

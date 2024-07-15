@@ -1,22 +1,19 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'salesorderheadersalesreason')}}
+    FROM {{ source('adventure_works', 'salesorderheadersalesreason') }}
+),
 
-), renamed AS (
-
+final AS (
     SELECT
-        MODIFIEDDATE::VARCHAR                                      AS MODIFIED_DATE,
-        SALESORDERID::NUMBER                                       AS SALESORDER_ID,
-        SALESREASONID::NUMBER                                      AS SALESREASON_ID,
-        _AIRBYTE_AB_ID::VARCHAR                                    AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP                             AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP                          AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_SALESORDERHEADERSALESREASON_HASHID::VARCHAR       AS AIRBYTE_SALESORDERHEADERSALESREASON_HASHID
-
+        modifieddate::varchar                                AS modified_date,
+        salesorderid::number                                 AS salesorder_id,
+        salesreasonid::number                                AS salesreason_id,
+        _airbyte_ab_id::varchar                              AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp                       AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp                    AS airbyte_normalized_at,
+        _airbyte_salesorderheadersalesreason_hashid::varchar AS airbyte_salesorderheadersalesreason_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM final;

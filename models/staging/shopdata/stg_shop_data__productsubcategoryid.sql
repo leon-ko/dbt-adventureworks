@@ -1,24 +1,22 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'productsubcategory')}}
+    FROM {{ source('adventure_works', 'productsubcategory') }}
+), 
 
-), renamed AS (
-
+renamed AS (
     SELECT
-        MODIFIEDDATE::VARCHAR                           AS MODIFIED_DATE,
-        NAME::VARCHAR                                   AS PRODUCT_SUBCATEGORY_NAME,
-        PRODUCTCATEGORYID::NUMBER                       AS PRODUCT_CATEGORY_ID,
-        PRODUCTSUBCATEGORYID::NUMBER                    AS PRODUCT_SUBCATEGORY_ID,
-        ROWGUID::VARCHAR                                AS ROWGU_ID,
-        _AIRBYTE_AB_ID::VARCHAR                         AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP                  AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP               AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_PRODUCTSUBCATEGORY_HASHID::VARCHAR     AS AIRBYTE_PRODUCTSUBCATEGORY_HASHID
-
+        modifieddate::varchar                       AS modified_date,
+        name::varchar                               AS product_subcategory_name,
+        productcategoryid::number                   AS product_category_id,
+        productsubcategoryid::number                AS product_subcategory_id,
+        rowguid::varchar                            AS rowgu_id,
+        _airbyte_ab_id::varchar                     AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp              AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp           AS airbyte_normalized_at,
+        _airbyte_productsubcategory_hashid::varchar AS airbyte_productsubcategory_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM renamed;
+

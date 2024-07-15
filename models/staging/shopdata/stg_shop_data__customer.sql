@@ -1,26 +1,23 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('dbt_lk', 'source_customer')}}
+    FROM {{ source('dbt_lk', 'source_customer') }}
+),
 
-), renamed AS (
-
+renamed AS (
     SELECT
-        ACCOUNTNUMBER::VARCHAR              AS ACCOUNT_NUMBER,
-        CUSTOMERID::NUMBER                  AS CUSTOMER_ID,
-        MODIFIEDDATE::VARCHAR               AS MODIFIED_DATE,
-        PERSONID::VARCHAR                   AS PERSON_ID,
-        ROWGUID::VARCHAR                    AS ROW_ID,
-        STOREID::NUMBER                     AS STORE_ID,
-        TERRITORYID::NUMBER                 AS TERRITORY_ID,
-        _AIRBYTE_AB_ID::VARCHAR             AS AIRBYTE_AB_ID,
-        _AIRBYTE_CUSTOMER_HASHID::VARCHAR   AS AIRBYTE_CUSTOMER_HASHID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP      AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP   AS AIRBYTE_NORMALIZED_AT
-
+        accountnumber::varchar            AS account_number,
+        customerid::number                AS customer_id,
+        modifieddate::varchar             AS modified_date,
+        personid::varchar                 AS person_id,
+        rowguid::varchar                  AS row_id,
+        storeid::number                   AS store_id,
+        territoryid::number               AS territory_id,
+        _airbyte_ab_id::varchar           AS airbyte_ab_id,
+        _airbyte_customer_hashid::varchar AS airbyte_customer_hashid,
+        _airbyte_emitted_at::timestamp    AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp AS airbyte_normalized_at
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM renamed;

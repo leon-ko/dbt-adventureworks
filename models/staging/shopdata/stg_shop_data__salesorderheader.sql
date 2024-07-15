@@ -1,44 +1,42 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'salesorderheader')}}
+    FROM {{ source('adventure_works', 'salesorderheader') }}
+),
 
-), renamed AS (
-
+renamed AS (
     SELECT
-        ACCOUNTNUMBER::VARCHAR                      AS ACCOUNTNUMBER,
-        BILLTOADDRESSID::NUMBER                     AS BILL_TOAD_DRESS_ID,
-        COMMENT::VARCHAR                            AS COMMENT,
-        CREDITCARDAPPROVALCODE::VARCHAR             AS CREDIT_CARD_APPROVAL_CODE,
-        CREDITCARDID::NUMBER                        AS CREDITCARD_ID,
-        CURRENCYRATEID::NUMBER                      AS CURRENCY_RATE_ID,
-        CUSTOMERID::NUMBER                          AS CUSTOMER_ID,
-        DUEDATE::VARCHAR                            AS DUE_DATE,
-        FREIGHT::FLOAT                              AS FREIGHT,
-        MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
-        ONLINEORDERFLAG::BOOLEAN                    AS ONLINE_ORDER_FLAG,
-        to_char(to_timestamp(orderdate), 'YYYYMMDD') AS ORDER_DATE,
-        PURCHASEORDERNUMBER::VARCHAR                AS PURCHASE_ORDER_NUMBER,
-        REVISIONNUMBER::NUMBER                      AS REVISION_NUMBER,
-        ROWGUID::VARCHAR                            AS ROW_ID,
-        SALESORDERID::NUMBER                        AS SALESORDER_ID,
-        SALESORDERNUMBER::VARCHAR                   AS SALESORDER_NUMBER,
-        SALESPERSONID::NUMBER                       AS SALESPERSON_ID,
-        SHIPDATE::VARCHAR                           AS SHIP_DATE,
-        SHIPMETHODID::NUMBER                        AS SHIPMETHOD_ID,
-        SHIPTOADDRESSID::NUMBER                     AS SHIPTOADDRESS_ID,
-        STATUS::NUMBER                              AS STATUS,
-        SUBTOTAL::FLOAT                             AS SUBTOTAL,
-        TERRITORYID::NUMBER                         AS TERRITORY_ID,
-        TOTALDUE::FLOAT                             AS TOTALDUE,
-        _AIRBYTE_AB_ID::VARCHAR                     AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP              AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP           AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_SALESORDERHEADER_HASHID::VARCHAR   AS AIRBYTE_SALESORDERHEADER_HASHID
-
+        accountnumber::varchar                       AS accountnumber,
+        billtoaddressid::number                      AS bill_to_address_id,
+        comment::varchar                             AS comment,
+        creditcardapprovalcode::varchar              AS credit_card_approval_code,
+        creditcardid::number                         AS creditcard_id,
+        currencyrateid::number                       AS currency_rate_id,
+        customerid::number                           AS customer_id,
+        duedate::varchar                             AS due_date,
+        freight::float                               AS freight,
+        modifieddate::varchar                        AS modified_date,
+        onlineorderflag::boolean                     AS online_order_flag,
+        to_char(to_timestamp(orderdate), 'YYYYMMDD') AS order_date,
+        purchaseordernumber::varchar                 AS purchase_order_number,
+        revisionnumber::number                       AS revision_number,
+        rowguid::varchar                             AS row_id,
+        salesorderid::number                         AS salesorder_id,
+        salesordernumber::varchar                    AS salesorder_number,
+        salespersonid::number                        AS salesperson_id,
+        shipdate::varchar                            AS ship_date,
+        shipmethodid::number                         AS shipmethod_id,
+        shiptoaddressid::number                      AS shiptoaddress_id,
+        status::number                               AS status,
+        subtotal::float                              AS subtotal,
+        territoryid::number                          AS territory_id,
+        totaldue::float                              AS totaldue,
+        _airbyte_ab_id::varchar                      AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp               AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp            AS airbyte_normalized_at,
+        _airbyte_salesorderheader_hashid::varchar    AS airbyte_salesorderheader_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM renamed;
+

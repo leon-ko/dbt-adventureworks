@@ -1,27 +1,24 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'salesterritory')}}
+    FROM {{ source('adventure_works', 'salesterritory') }}
+),
 
-), renamed AS (
-
+final AS (
     SELECT
-        COUNTRYREGIONCODE::VARCHAR                  AS COUNTRY_REGION_CODE,
-        MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
-        "Group"::VARCHAR                            AS SALES_TERRITORY_GROUP,
-        NAME::VARCHAR                               AS SALES_TERRITORY_NAME,
-        ROWGUID::VARCHAR                            AS ROW_ID,
-        SALESLASTYEAR::FLOAT                        AS SALES_LAST_YEAR,
-        SALESYTD::FLOAT                             AS SALES_YTD,
-        TERRITORYID::NUMBER                         AS SALES_TERRITORY_ID,
-        _AIRBYTE_AB_ID::VARCHAR                     AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP              AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP           AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_SALESTERRITORY_HASHID::VARCHAR     AS AIRBYTE_SALESORDERTERRITORY_HASHID
-
+        countryregioncode::varchar              AS country_region_code,
+        modifieddate::varchar                   AS modified_date,
+        "group"::varchar                        AS sales_territory_group,
+        name::varchar                           AS sales_territory_name,
+        rowguid::varchar                        AS row_id,
+        saleslastyear::float                    AS sales_last_year,
+        salesytd::float                         AS sales_ytd,
+        territoryid::number                     AS sales_territory_id,
+        _airbyte_ab_id::varchar                 AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp          AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp       AS airbyte_normalized_at,
+        _airbyte_salesterritory_hashid::varchar AS airbyte_salesterritory_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM final;

@@ -1,41 +1,35 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('dbt_lk', 'source_vindividualcustomer')}}
+    FROM {{ source('dbt_lk', 'source_vindividualcustomer') }}
+), 
 
-), renamed AS (
-
+final AS (
     SELECT
-        ADDRESSLINE1::VARCHAR                          AS ADDRESSLINE1,
-        ADDRESSLINE2::VARCHAR                          AS ADDRESSLINE2,
-        ADDRESSTYPE::VARCHAR                           AS ADDRESSTYPE,
-        BUSINESSENTITYID::NUMBER                       AS BUSINESSENTITY_ID,
-        CITY::VARCHAR                                  AS CITY,
-        COUNTRYREGIONNAME::VARCHAR                     AS COUNTRYREGION_NAME,
-        DEMOGRAPHICS::VARCHAR                          AS DEMOGRAPHICS,
-        EMAILADDRESS::VARCHAR                          AS EMAIL_ADDRESS,
-        EMAILPROMOTION::NUMBER                         AS EMAIL_PROMOTION,
-        FIRSTNAME::VARCHAR                             AS FIRSTNAME,
-        LASTNAME::VARCHAR                              AS LASTNAME,
-        MIDDLENAME::VARCHAR                            AS MIDDLENAME,
-        PHONENUMBER::VARCHAR                           AS PHONENUMBER,
-        PHONENUMBERTYPE::VARCHAR                       AS PHONENUMBER_TYPE,
-        POSTALCODE::VARCHAR                            AS POSTAL_CODE,
-        STATEPROVINCENAME::VARCHAR                     AS STATEPROVINCENAME,
-        SUFFIX::VARCHAR                                AS SUFFIX,
-        TITLE::VARCHAR                                 AS TITLE,
-        _AIRBYTE_AB_ID::VARCHAR                        AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP                 AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP              AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_VINDIVIDUALCUSTOMER_HASHID::VARCHAR   AS AIRBYTE_VINDIVIDUALCUSTOMER_HASHID
-
+        addressline1::varchar                        AS addressline1,
+        addressline2::varchar                        AS addressline2,
+        addresstype::varchar                         AS addresstype,
+        businessentityid::number                     AS businessentity_id,
+        city::varchar                                AS city,
+        countryregionname::varchar                   AS countryregion_name,
+        demographics::varchar                        AS demographics,
+        emailaddress::varchar                        AS email_address,
+        emailpromotion::number                       AS email_promotion,
+        firstname::varchar                           AS firstname,
+        lastname::varchar                            AS lastname,
+        middlename::varchar                          AS middlename,
+        phonenumber::varchar                         AS phonenumber,
+        phonenumbertype::varchar                     AS phonenumber_type,
+        postalcode::varchar                          AS postal_code,
+        stateprovincename::varchar                   AS stateprovincename,
+        suffix::varchar                              AS suffix,
+        title::varchar                               AS title,
+        _airbyte_ab_id::varchar                      AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp               AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp            AS airbyte_normalized_at,
+        _airbyte_vindividualcustomer_hashid::varchar AS airbyte_vindividualcustomer_hashid
     FROM source
-
-    WHERE ADDRESSTYPE = 'Home'
+    WHERE addresstype = 'Home'
 )
 
 SELECT *
-FROM renamed
-
-
-
+FROM final;

@@ -1,25 +1,22 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'store')}}
+    FROM {{ source('adventure_works', 'store') }}
+),
 
-), renamed AS (
-
+final AS (
     SELECT
-        BUSINESSENTITYID::NUMBER            AS BUSINESSENTITY_ID,
-        DEMOGRAPHICS::VARCHAR               AS DEMOGRAPHICS,
-        MODIFIEDDATE::VARCHAR               AS MODIFIED_DATE,
-        NAME::VARCHAR                       AS NAME,
-        ROWGUID::VARCHAR                    AS ROW_ID,
-        SALESPERSONID::NUMBER               AS SALESPERSON_ID,
-        _AIRBYTE_AB_ID::VARCHAR             AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP      AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP   AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_STORE_HASHID::VARCHAR      AS AIRBYTE_STORE_HASHID
-
+        businessentityid::number          AS businessentity_id,
+        demographics::varchar             AS demographics,
+        modifieddate::varchar             AS modified_date,
+        name::varchar                     AS store_name,
+        rowguid::varchar                  AS row_id,
+        salespersonid::number             AS salesperson_id,
+        _airbyte_ab_id::varchar           AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp    AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp AS airbyte_normalized_at,
+        _airbyte_store_hashid::varchar    AS airbyte_store_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM final;

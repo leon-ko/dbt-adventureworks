@@ -3,31 +3,35 @@
                VALUES (0, 0, 0, 0, 'unknown', 'unknown', 0, 0, 'unknown', 'unknown')"
 ) }}
 
-with salesperson as (
-    select * from {{ ref("stg_shop_data_salesperson") }}
+WITH salesperson AS (
+    SELECT * 
+    FROM {{ ref("stg_shop_data_salesperson") }}
 ),
 
-vsalesperson as (
-    select * from {{ ref("stg_shop_data__vsalesperson") }}
+vsalesperson AS (
+    SELECT * 
+    FROM {{ ref("stg_shop_data__vsalesperson") }}
 ),
 
-final as (
-    select 
-        salesperson.salesperson_id                                  as salesperson_id,
-        salesperson.bonus                                           as bonus,
-        salesperson.sales_ytd                                       as sales_ytd,
-        salesperson.sales_last_year                                 as sales_last_year,
-        vsalesperson.firstname                                      as firstname,
-        vsalesperson.lastname                                       as lastname,
-        concat(vsalesperson.firstname, ' ', vsalesperson.lastname)  as full_name,
-        vsalesperson.postal_code                                    as postal_code,
-        vsalesperson.phonenumber                                    as phonenumber,
-        vsalesperson.email_address                                  as email_address,
-        vsalesperson.jobtitle                                       as jobtitle
+final AS (
+    SELECT 
+        salesperson.salesperson_id                                 AS salesperson_id,
+        salesperson.bonus                                          AS bonus,
+        salesperson.sales_ytd                                      AS sales_ytd,
+        salesperson.sales_last_year                                AS sales_last_year,
+        vsalesperson.firstname                                     AS firstname,
+        vsalesperson.lastname                                      AS lastname,
+        CONCAT(vsalesperson.firstname, ' ', vsalesperson.lastname) AS full_name,
+        vsalesperson.postal_code                                   AS postal_code,
+        vsalesperson.phonenumber                                   AS phonenumber,
+        vsalesperson.email_address                                 AS email_address,
+        vsalesperson.jobtitle                                      AS jobtitle
 
-    from salesperson
+    FROM salesperson
 
-    left join vsalesperson on salesperson.salesperson_id = vsalesperson.businessentity_id
+    LEFT JOIN vsalesperson 
+        ON salesperson.salesperson_id = vsalesperson.businessentity_id
 )
 
-select * from final
+SELECT * 
+FROM final;

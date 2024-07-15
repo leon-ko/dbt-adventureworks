@@ -1,10 +1,11 @@
-with salesreason as (
-    select 
-        salesreason_name    as salesreason_name,
-        reason_type         as reason_type,
-        salesreason_id      as salesreason_id
-    from 
-        {{ref('stg_shop_data__salesreason')}}
+WITH salesreason AS (
+    SELECT 
+        salesreason_name AS salesreason_name,
+        reason_type      AS reason_type,
+        salesreason_id   AS salesreason_id
+    FROM 
+        {{ ref('stg_shop_data__salesreason') }}
 )
 
-select * from salesreason
+SELECT * 
+FROM salesreason;

@@ -1,30 +1,27 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'salesorderdetail')}}
+    FROM {{ source('adventure_works', 'salesorderdetail') }}
+),
 
-), renamed AS (
-
+renamed AS (
     SELECT
-        CARRIERTRACKINGNUMBER::VARCHAR              AS CARRIER_TRACKING_NUMBER,
-        LINETOTAL::FLOAT                            AS LINE_TOTAL,
-        ORDERQTY::NUMBER                            AS ORDER_QTY,
-        MODIFIEDDATE::VARCHAR                       AS MODIFIED_DATE,
-        PRODUCTID::NUMBER                           AS PRODUCT_ID,
-        ROWGUID::VARCHAR                            AS ROW_ID,
-        SALESORDERDETAILID::NUMBER                  AS SALESORDER_DETAIL_ID,
-        SALESORDERID::NUMBER                        AS SALESORDER_ID,
-        SPECIALOFFERID::NUMBER                      AS SPECIALOFFER_ID,
-        UNITPRICE::FLOAT                            AS UNIT_PRICE,
-        UNITPRICEDISCOUNT::FLOAT                    AS UNIT_PRICE_DISCOUNT,
-        _AIRBYTE_AB_ID::VARCHAR                     AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP              AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP           AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_SALESORDERDETAIL_HASHID::VARCHAR   AS AIRBYTE_SALESORDERDETAIL_HASHID
-
+        carriertrackingnumber::varchar            AS carrier_tracking_number,
+        linetotal::float                          AS line_total,
+        orderqty::number                          AS order_qty,
+        modifieddate::varchar                     AS modified_date,
+        productid::number                         AS product_id,
+        rowguid::varchar                          AS row_id,
+        salesorderdetailid::number                AS salesorder_detail_id,
+        salesorderid::number                      AS salesorder_id,
+        specialofferid::number                    AS specialoffer_id,
+        unitprice::float                          AS unit_price,
+        unitpricediscount::float                  AS unit_price_discount,
+        _airbyte_ab_id::varchar                   AS airbyte_ab_id,
+        _airbyte_emitted_at::timestamp            AS airbyte_emitted_hashid,
+        _airbyte_normalized_at::timestamp         AS airbyte_normalized_at,
+        _airbyte_salesorderdetail_hashid::varchar AS airbyte_salesorderdetail_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
+FROM renamed;

@@ -1,14 +1,15 @@
-with category_revenue_forecast as (
-    select * from {{ref('category_revenue_forecast')}}
-), 
-final as (
-    select 
-        productcategory_id  as productcategory_id,
-        revenue_forecast    as revenue_forecast,
-        month_year_day      as month_year_day
+WITH category_revenue_forecast AS (
+    SELECT *
+    FROM {{ ref('category_revenue_forecast') }}
+), --noqa: disable=LT01 
 
-    from 
-        category_revenue_forecast
+final AS (
+    SELECT
+        productcategory_id AS productcategory_id,  --noqa: disable=AL09
+        revenue_forecast   AS revenue_forecast,
+        month_year_day     AS month_year_day
+    FROM category_revenue_forecast
 )
 
-select * from final
+SELECT *
+FROM final;

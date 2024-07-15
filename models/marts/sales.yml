@@ -168,6 +168,13 @@ models:
 
   - name: fct_category_forecast
     description: Revenue forecast by category
+    tests:
+      - elementary.volume_anomalies:
+          tags: ['elementary']
+      - elementary.schema_changes:
+          tags: ['elementary']
+          config:
+            severity: warn
     columns:
       - name: productcategory_id
         tests:

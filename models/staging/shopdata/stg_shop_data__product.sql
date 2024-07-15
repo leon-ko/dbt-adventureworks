@@ -1,45 +1,41 @@
 WITH source AS (
-
     SELECT *
-    FROM {{source('adventure_works', 'product')}}
+    FROM {{ source('adventure_works', 'product') }}
+),
 
-), renamed AS (
-
+renamed AS (
     SELECT
-        CLASS::VARCHAR                      AS PRODUCT_CLASS,
-        COLOR::VARCHAR                      AS PRODUCT_COLOR,
-        DAYSTOMANUFACTURE::NUMBER           AS DAYS_TO_MANUFACTURE,
-        DISCONTINUEDDATE::VARCHAR           AS DISCONTINUE_DATA,
-        FINISHEDGOODSFLAG::BOOLEAN          AS FINISHED_GOODS_FLAG,
-        LISTPRICE::FLOAT                    AS LIST_PRICE,
-        MAKEFLAG::BOOLEAN                   AS MAKE_FLAG,
-        MODIFIEDDATE::VARCHAR               AS MODIFIED_DATE,
-        NAME::VARCHAR                       AS PRODUCT_NAME,
-        PRODUCTID::NUMBER                   AS PRODUCT_ID,
-        PRODUCTLINE::VARCHAR                AS PRODUCT_LINE,
-        PRODUCTMODELID::NUMBER              AS PRODUCTMODEL_ID,
-        PRODUCTNUMBER::VARCHAR              AS PRODUCT_NUMBER,
-        PRODUCTSUBCATEGORYID::NUMBER        AS PRODUCT_SUBCATEGORY_ID,
-        REORDERPOINT::NUMBER                AS REORDER_POINT,
-        ROWGUID::VARCHAR                    AS ROW_ID,
-        SAFETYSTOCKLEVEL::NUMBER            AS SAFETY_STOCK_LEVEL,
-        SELLENDDATE::VARCHAR                AS SELL_END_DATE,
-        SELLSTARTDATE::VARCHAR              AS SELL_START_DATE,
-        SIZE::VARCHAR                       AS PRODUCT_SIZE,
-        SIZEUNITMEASURECODE::VARCHAR        AS SIZEUNITMEASURE_CODE,
-        STANDARDCOST:: FLOAT                AS STANDARD_COST,
-        STYLE::VARCHAR                      AS PRODUCT_STYLE,
-        WEIGHT::FLOAT                       AS PRODUCT_WEIGHT,
-        WEIGHTUNITMEASURECODE               AS WEIGHT_UNIT_MEASURE_CODE,
-        _AIRBYTE_AB_ID::VARCHAR             AS AIRBYTE_AB_ID,
-        _AIRBYTE_EMITTED_AT::TIMESTAMP      AS AIRBYTE_EMITTED_HASHID,
-        _AIRBYTE_NORMALIZED_AT::TIMESTAMP   AS AIRBYTE_NORMALIZED_AT,
-        _AIRBYTE_PRODUCT_HASHID::VARCHAR    AS AIRBYTE_PRODUCT_HASHID,
-
+        class::VARCHAR                    AS product_class,
+        color::VARCHAR                    AS product_color,
+        daystomanufacture::NUMBER         AS days_to_manufacture,
+        discontinueddate::VARCHAR         AS discontinued_date,
+        finishedgoodsflag::BOOLEAN        AS finished_goods_flag,
+        listprice::FLOAT                  AS list_price,
+        makeflag::BOOLEAN                 AS make_flag,
+        modifieddate::VARCHAR             AS modified_date,
+        name::VARCHAR                     AS product_name,
+        productid::NUMBER                 AS product_id,
+        productline::VARCHAR              AS product_line,
+        productmodelid::NUMBER            AS productmodel_id,
+        productnumber::VARCHAR            AS product_number,
+        productsubcategoryid::NUMBER      AS product_subcategory_id,
+        reorderpoint::NUMBER              AS reorder_point,
+        rowguid::VARCHAR                  AS row_id,
+        safetystocklevel::NUMBER          AS safety_stock_level,
+        sellenddate::VARCHAR              AS sell_end_date,
+        sellstartdate::VARCHAR            AS sell_start_date,
+        size::VARCHAR                     AS product_size,
+        sizeunitmeasurecode::VARCHAR      AS size_unit_measure_code,
+        standardcost::FLOAT               AS standard_cost,
+        style::VARCHAR                    AS product_style,
+        weight::FLOAT                     AS product_weight,
+        weightunitmeasurecode::VARCHAR    AS weight_unit_measure_code,
+        _airbyte_ab_id::VARCHAR           AS airbyte_ab_id,
+        _airbyte_emitted_at::TIMESTAMP    AS airbyte_emitted_at,
+        _airbyte_normalized_at::TIMESTAMP AS airbyte_normalized_at,
+        _airbyte_product_hashid::VARCHAR  AS airbyte_product_hashid
     FROM source
-
 )
 
 SELECT *
-FROM renamed
-
+FROM renamed;
